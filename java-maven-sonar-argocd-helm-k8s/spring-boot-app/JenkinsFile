@@ -1,10 +1,10 @@
 pipeline {
-agent {
-  docker {
+  agent {
+    docker {
     image 'kevin557/jenkins-agent-docker-maven:v1'
     args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+    }
   }
-}
   stages {
     stage('Checkout') {
       steps {
