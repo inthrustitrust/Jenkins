@@ -1,17 +1,13 @@
-FROM maven:3.9.6-eclipse-temurin-17
+FROM docker:20.10.24-cli
 
-LABEL maintainer="notsonice"
+# Install OpenJDK 17 and Maven on Alpine
+RUN apk add --no-cache \
+    openjdk17 \
+    maven \
+    bash \
+    git
 
-# Install Docker CLI
-RUN apt-get update && \
-    apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
-    https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list && \
-    apt-get update && \
-    apt-get install -y docker-ce-cli && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+ENV PATH=$JAVA_HOME/bin:$PATH
 
-# Set workdir
 WORKDIR /app
