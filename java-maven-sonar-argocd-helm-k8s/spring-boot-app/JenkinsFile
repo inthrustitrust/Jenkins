@@ -53,8 +53,8 @@ pipeline {
     }
 
     stage('Update Deployment File and Push to GitHub') {
-        steps {
-          withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+      steps {
+        withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
           sh '''
             git config user.email "vinham16@gmail.com"
             git config user.name "Kevin Abraham"
@@ -64,10 +64,11 @@ pipeline {
             git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
           '''
         }
+      }
+    }
   }
-}
 
-post {
+  post {
     always {
       echo '🔁 Pipeline completed.'
     }
@@ -77,4 +78,5 @@ post {
     failure {
       echo '❌ Build failed.'
     }
+  }
 }
