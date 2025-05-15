@@ -13,9 +13,18 @@ pipeline {
     }
     stage('Build and Test') {
       steps {
-        sh 'ls -ltr'
-        // build the project and create a JAR file
-        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
+      // Verify Maven installation
+          sh 'mvn -v'
+
+      // List current directory contents
+          sh 'ls -la'
+
+      // Navigate to the application directory and list its contents
+          sh '''
+          cd java-maven-sonar-argocd-helm-k8s/spring-boot-app
+          ls -la
+          mvn clean package
+          '''
       }
     }
     stage('Static Code Analysis') {
