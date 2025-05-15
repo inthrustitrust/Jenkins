@@ -1,6 +1,6 @@
 FROM maven:3.9.6-eclipse-temurin-17
 
-LABEL maintainer="yourname@example.com"
+LABEL maintainer="notsonice"
 
 # Install Docker CLI
 RUN apt-get update && \
